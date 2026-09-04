@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KRISHNA // SYSTEM</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* =====================================================
+   CORE
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#010301;
+    color:#00ff41;
+    font-family:"Courier New",monospace;
+    overflow-x:hidden;
+}
+
+
+/* =====================================================
+   MATRIX
+===================================================== */
+
+#matrix{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-10;
+    opacity:.16;
+}
+
+.scanlines{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1000;
+
+    background:
+    repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,255,65,.025) 4px
+    );
+}
+
+.vignette{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:999;
+
+    box-shadow:
+    inset 0 0 180px #000,
+    inset 0 0 350px #000;
+}
+
+
+/* =====================================================
+   TOP SYSTEM BAR
+===================================================== */
+
+.system-bar{
+
+    height:48px;
+
+    display:grid;
+
+    grid-template-columns:
+    1.2fr 1fr 1fr 1.5fr 1fr 1fr;
+
+    border-bottom:
+    1px solid rgba(0,255,65,.3);
+
+    background:rgba(0,5,2,.8);
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+.system-bar div{
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 18px;
+
+    border-right:
+    1px solid rgba(0,255,65,.12);
+
+    color:#506058;
+}
+
+.system-bar .brand{
+
+    color:#00ff41;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    text-shadow:
+    0 0 10px #00ff41;
+}
+
+.green{
+    color:#00ff41 !important;
+}
+
+.red{
+    color:#ff3030 !important;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+    width:min(1450px,96%);
+
+    margin:auto;
+
+    min-height:calc(100vh - 48px);
+
+    position:relative;
+
+    padding:45px 20px 40px;
+}
+
+
+/* =====================================================
+   HUD SIDE PANELS
+===================================================== */
+
+.hud{
+
+    position:absolute;
+
+    width:230px;
+
+    border:1px solid rgba(0,255,65,.3);
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(0,255,65,.035),
+        rgba(0,0,0,.7)
+    );
+
+    padding:20px;
+
+    font-size:9px;
+
+    color:#637269;
+
+    box-shadow:
+    inset 0 0 30px rgba(0,255,65,.025);
+}
+
+.hud::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-1px;
+    left:-1px;
+
+    width:35px;
+    height:2px;
+
+    background:#00ff41;
+
+    box-shadow:0 0 10px #00ff41;
+}
+
+.hud h3{
+
+    font-size:10px;
+
+    color:#00ff41;
+
+    letter-spacing:1px;
+
+    margin-bottom:18px;
+}
+
+.hud p{
+
+    margin:9px 0;
+
+    line-height:1.5;
+}
+
+.hud-left{
+    left:20px;
+    top:45px;
+}
+
+.hud-left-bottom{
+    left:20px;
+    top:340px;
+}
+
+.hud-right{
+    right:20px;
+    top:45px;
+}
+
+.hud-right-bottom{
+    right:20px;
+    top:340px;
+}
+
+
+/* =====================================================
+   MINI BAR
+===================================================== */
+
+.bar{
+
+    height:5px;
+
+    margin-top:8px;
+
+    background:
+    repeating-linear-gradient(
+        90deg,
+        #00ff41 0 5px,
+        transparent 5px 8px
+    );
+
+    opacity:.7;
+}
+
+
+/* =====================================================
+   CENTER AREA
+===================================================== */
+
+.center{
+
+    width:650px;
+
+    max-width:55%;
+
+    margin:0 auto;
+
+    text-align:center;
+
+    position:relative;
+
+    z-index:5;
+}
+
+
+/* =====================================================
+   WARNING
+===================================================== */
+
+.warning{
+
+    color:#ff3030;
+
+    font-size:13px;
+
+    letter-spacing:4px;
+
+    margin-top:15px;
+
+    margin-bottom:20px;
+
+    animation:warningBlink 1.3s infinite;
+
+    text-shadow:
+    0 0 10px rgba(255,0,0,.7);
+}
+
+@keyframes warningBlink{
+
+    50%{
+        opacity:.35;
+    }
+}
+
+
+/* =====================================================
+   NAME
+===================================================== */
+
+.glitch-title{
+
+    position:relative;
+
+    font-size:
+    clamp(55px,8vw,115px);
+
+    line-height:.9;
+
+    letter-spacing:8px;
+
+    color:#00ff41;
+
+    font-weight:bold;
+
+    text-shadow:
+    0 0 8px #00ff41,
+    0 0 25px #00ff41,
+    0 0 55px rgba(0,255,65,.5);
+
+    animation:titleGlitch 4s infinite;
+}
+
+@keyframes titleGlitch{
+
+    0%,94%,100%{
+        transform:none;
+    }
+
+    95%{
+        transform:translateX(4px);
+    }
+
+    96%{
+        transform:translateX(-4px);
+    }
+
+    97%{
+        transform:none;
+    }
+}
+
+
+/* =====================================================
+   ACCESS BOX
+===================================================== */
+
+.access-box{
+
+    margin:25px auto;
+
+    width:400px;
+
+    max-width:90%;
+
+    padding:12px;
+
+    border:1px solid #00ff41;
+
+    color:#00ff41;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    box-shadow:
+    0 0 15px rgba(0,255,65,.2),
+    inset 0 0 15px rgba(0,255,65,.04);
+}
+
+.subtitle{
+
+    color:#719079;
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+    margin:30px 0;
+}
+
+
+/* =====================================================
+   BOOT PROGRESS
+===================================================== */
+
+.boot{
+
+    width:300px;
+
+    max-width:80%;
+
+    margin:25px auto;
+
+    text-align:left;
+
+    font-size:10px;
+
+    color:#5d6d63;
+}
+
+.boot-label{
+
+    margin-bottom:7px;
+}
+
+.progress{
+
+    height:8px;
+
+    border:1px solid rgba(0,255,65,.3);
+
+    padding:1px;
+}
+
+.progress-inner{
+
+    width:100%;
+
+    height:100%;
+
+    background:
+    repeating-linear-gradient(
+        90deg,
+        #00ff41 0 7px,
+        transparent 7px 10px
+    );
+
+    animation:progressGlow 2s infinite;
+}
+
+@keyframes progressGlow{
+
+    50%{
+        opacity:.5;
+    }
+}
+
+
+/* =====================================================
+   COMMAND MODULES
+===================================================== */
+
+.modules{
+
+    margin-top:45px;
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:22px;
+
+    position:relative;
+
+    z-index:10;
+}
+
+
+/* angular shape */
+
+.module{
+
+    min-height:150px;
+
+    position:relative;
+
+    padding:28px;
+
+    text-decoration:none;
+
+    color:#00ff41;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(0,255,65,.05),
+        rgba(0,0,0,.85)
+    );
+
+    border:1px solid rgba(0,255,65,.6);
+
+    clip-path:
+    polygon(
+        0 15px,
+        15px 0,
+        calc(100% - 15px) 0,
+        100% 15px,
+        100% calc(100% - 15px),
+        calc(100% - 15px) 100%,
+        15px 100%,
+        0 calc(100% - 15px)
+    );
+
+    transition:.35s;
+}
+
+.module:hover{
+
+    transform:scale(1.035);
+
+    background:
+    rgba(0,255,65,.08);
+
+    box-shadow:
+    0 0 30px rgba(0,255,65,.2),
+    inset 0 0 30px rgba(0,255,65,.05);
+}
+
+.module::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:5px;
+
+    border:1px solid rgba(0,255,65,.08);
+
+    pointer-events:none;
+}
+
+.module-number{
+
+    position:absolute;
+
+    top:15px;
+    left:20px;
+
+    font-size:11px;
+
+    color:#00ff41;
+}
+
+.module-icon{
+
+    font-size:28px;
+
+    margin-top:12px;
+
+    margin-bottom:10px;
+
+    text-shadow:
+    0 0 15px #00ff41;
+}
+
+.module h2{
+
+    font-size:20px;
+
+    letter-spacing:3px;
+
+    color:#d7ffe0;
+
+    margin-bottom:7px;
+}
+
+.module p{
+
+    color:#607066;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+.enter{
+
+    position:absolute;
+
+    right:20px;
+
+    bottom:18px;
+
+    font-size:9px;
+
+    color:#00ff41;
+
+    border:1px solid rgba(0,255,65,.3);
+
+    padding:6px 10px;
+}
+
+
+/* =====================================================
+   CENTRAL REACTOR
+===================================================== */
+
+.reactor{
+
+    position:absolute;
+
+    left:50%;
+
+    top:62%;
+
+    transform:translate(-50%,-50%);
+
+    width:190px;
+
+    height:190px;
+
+    pointer-events:none;
+
+    z-index:1;
+}
+
+.ring{
+
+    position:absolute;
+
+    inset:0;
+
+    border:1px solid rgba(0,255,65,.35);
+
+    border-radius:50%;
+
+    box-shadow:
+    0 0 15px rgba(0,255,65,.1);
+}
+
+.ring:nth-child(1){
+    animation:spin 12s linear infinite;
+}
+
+.ring:nth-child(2){
+
+    inset:15px;
+
+    border-style:dashed;
+
+    animation:spinReverse 8s linear infinite;
+}
+
+.ring:nth-child(3){
+
+    inset:35px;
+
+    border-color:#00ff41;
+
+    animation:spin 5s linear infinite;
+}
+
+.ring:nth-child(4){
+
+    inset:55px;
+
+    border-style:dotted;
+
+    animation:spinReverse 4s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes spinReverse{
+
+    to{
+        transform:rotate(-360deg);
+    }
+}
+
+.core{
+
+    position:absolute;
+
+    width:35px;
+    height:35px;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:#00ff41;
+
+    box-shadow:
+    0 0 15px #00ff41,
+    0 0 40px #00ff41,
+    0 0 80px rgba(0,255,65,.7);
+
+    animation:corePulse 1.5s infinite;
+}
+
+@keyframes corePulse{
+
+    50%{
+        transform:
+        translate(-50%,-50%)
+        scale(1.4);
+
+        opacity:.7;
+    }
+}
+
+
+/* =====================================================
+   CONNECTOR LINES
+===================================================== */
+
+.connector{
+
+    position:absolute;
+
+    height:1px;
+
+    width:150px;
+
+    background:#00ff41;
+
+    opacity:.5;
+
+    z-index:0;
+}
+
+.c1{
+    left:25%;
+    top:62%;
+    transform:rotate(12deg);
+}
+
+.c2{
+    right:25%;
+    top:62%;
+    transform:rotate(-12deg);
+}
+
+
+/* =====================================================
+   LOWER CONSOLE
+===================================================== */
+
+.console{
+
+    margin-top:35px;
+
+    border:1px solid rgba(0,255,65,.3);
+
+    min-height:130px;
+
+    display:grid;
+
+    grid-template-columns:1.4fr .8fr;
+
+    background:
+    rgba(0,5,2,.8);
+
+    position:relative;
+
+    z-index:5;
+}
+
+.console-left{
+
+    padding:18px;
+
+    border-right:
+    1px solid rgba(0,255,65,.15);
+
+    text-align:left;
+
+    font-size:9px;
+
+    line-height:2;
+
+    color:#65746a;
+}
+
+.console-title{
+
+    color:#00ff41;
+
+    margin-bottom:10px;
+}
+
+.console-right{
+
+    padding:18px;
+
+    text-align:left;
+
+    font-size:9px;
+
+    color:#65746a;
+}
+
+.map{
+
+    margin-top:12px;
+
+    height:55px;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(0,255,65,.7) 1px,
+        transparent 2px
+    );
+
+    background-size:8px 8px;
+
+    opacity:.5;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    margin-top:25px;
+
+    padding:15px 5px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#405047;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+    border-top:
+    1px solid rgba(0,255,65,.12);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:1000px){
+
+    .system-bar{
+        grid-template-columns:
+        1fr 1fr 1fr;
+        height:auto;
+    }
+
+    .system-bar div{
+        min-height:40px;
+    }
+
+    .hud{
+        display:none;
+    }
+
+    .center{
+        max-width:100%;
+        width:100%;
+    }
+
+    .modules{
+        margin-top:35px;
+    }
+
+    .reactor{
+        display:none;
+    }
+
+    .connector{
+        display:none;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .system-bar{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .system-bar div{
+        font-size:8px;
+        padding:0 10px;
+    }
+
+    .main{
+        padding:35px 10px;
+    }
+
+    .warning{
+        font-size:9px;
+        letter-spacing:2px;
+    }
+
+    .glitch-title{
+        font-size:55px;
+        letter-spacing:3px;
+    }
+
+    .subtitle{
+        font-size:9px;
+        letter-spacing:2px;
+    }
+
+    .modules{
+        grid-template-columns:1fr;
+    }
+
+    .module{
+        min-height:135px;
+    }
+
+    .console{
+        grid-template-columns:1fr;
+    }
+
+    .console-left{
+        border-right:none;
+        border-bottom:
+        1px solid rgba(0,255,65,.15);
+    }
+
+    .footer{
+        flex-direction:column;
+        gap:10px;
+        text-align:center;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<canvas id="matrix"></canvas>
+
+<div class="scanlines"></div>
+
+<div class="vignette"></div>
+
+
+
+<!-- =====================================================
+     SYSTEM BAR
+===================================================== -->
+
+<header class="system-bar">
+
+    <div class="brand">
+        KRISHNA.SYSTEM
+    </div>
+
+    <div>
+        USER:
+        <span class="green">ROOT</span>
+    </div>
+
+    <div>
+        ACCESS:
+        <span class="green">GRANTED ●</span>
+    </div>
+
+    <div>
+        [ ENCRYPTED CONNECTION ESTABLISHED ]
+    </div>
+
+    <div>
+        TIME:
+        <span id="clock">--:--:--</span>
+    </div>
+
+    <div>
+        DATE:
+        <span id="date">--/--/----</span>
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- LEFT HUD -->
+
+    <div class="hud hud-left">
+
+        <h3>
+            &gt; SYSTEM_BOOT_SEQUENCE
+        </h3>
+
+        <p class="green">
+            [✓] Initializing Core...
+        </p>
+
+        <p class="green">
+            [✓] Loading Modules...
+        </p>
+
+        <p class="green">
+            [✓] Scanning Network...
+        </p>
+
+        <p class="green">
+            [✓] Developer Node Online
+        </p>
+
+        <p class="red">
+            [!] Authorized Access Only
+        </p>
+
+    </div>
+
+
+    <!-- LEFT LOWER HUD -->
+
+    <div class="hud hud-left-bottom">
+
+        <h3>
+            &gt; LIVE_FEED
+        </h3>
+
+        <p>
+            &gt; Git Initialized
+        </p>
+
+        <p>
+            &gt; Projects Loaded
+        </p>
+
+        <p>
+            &gt; Systems Stable
+        </p>
+
+        <p class="green">
+            &gt; Keep Building...
+        </p>
+
+    </div>
+
+
+    <!-- RIGHT HUD -->
+
+    <div class="hud hud-right">
+
+        <h3>
+            &gt; NODE_INFORMATION
+        </h3>
+
+        <p>
+            NODE_ID :
+            <span class="green">
+                KRISHNA-DEV-001
+            </span>
+        </p>
+
+        <p>
+            ROLE :
+            <span class="green">
+                DEVELOPER
+            </span>
+        </p>
+
+        <p>
+            CLEARANCE :
+            <span class="green">
+                LEVEL 07
+            </span>
+        </p>
+
+        <p>
+            STATUS :
+            <span class="green">
+                ACTIVE
+            </span>
+        </p>
+
+        <div class="bar"></div>
+
+    </div>
+
+
+    <!-- RIGHT LOWER HUD -->
+
+    <div class="hud hud-right-bottom">
+
+        <h3>
+            &gt; SECURITY_STATUS
+        </h3>
+
+        <p class="green">
+            FIREWALL : ACTIVE
+        </p>
+
+        <p>
+            INTRUSION : NONE
+        </p>
+
+        <p>
+            ENCRYPTION : AES-256
+        </p>
+
+        <div class="bar"></div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CENTER
+    ================================================= -->
+
+    <section class="center">
+
+
+        <div class="warning">
+
+            ⚠ SYSTEM BREACH DETECTED ⚠
+
+        </div>
+
+
+        <h1 class="glitch-title">
+
+            KRISHNA
+
+        </h1>
+
+
+        <div class="access-box">
+
+            ROOT ACCESS // DEVELOPER NODE
+
+        </div>
+
+
+        <div class="subtitle">
+
+            CODE • CREATE • AUTOMATE • BUILD
+
+        </div>
+
+
+        <div class="boot">
+
+            <div class="boot-label">
+
+                &gt; INITIALIZING INTERFACE...
+
+                <span class="green"
+                      style="float:right">
+                    100%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div class="progress-inner"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MODULES
+        ================================================= -->
+
+        <div class="modules">
+
+
+            <!-- ABOUT -->
+
+            <a href="pages/about.html"
+               class="module">
+
+                <span class="module-number">
+                    01
+                </span>
+
+                <div class="module-icon">
+                    &lt;/&gt;
+                </div>
+
+                <h2>
+                    ABOUT
+                </h2>
+
+                <p>
+                    IDENTITY // MISSION
+                </p>
+
+                <span class="enter">
+                    ENTER MODULE →
+                </span>
+
+            </a>
+
+
+
+            <!-- PROJECTS -->
+
+            <a href="pages/projects.html"
+               class="module">
+
+                <span class="module-number">
+                    03
+                </span>
+
+                <div class="module-icon">
+                    ◈
+                </div>
+
+                <h2>
+                    PROJECTS
+                </h2>
+
+                <p>
+                    PROJECT // VAULT
+                </p>
+
+                <span class="enter">
+                    ENTER MODULE →
+                </span>
+
+            </a>
+
+
+
+            <!-- SKILLS -->
+
+            <a href="pages/skills.html"
+               class="module">
+
+                <span class="module-number">
+                    02
+                </span>
+
+                <div class="module-icon">
+                    ⚡
+                </div>
+
+                <h2>
+                    SKILLS
+                </h2>
+
+                <p>
+                    TECH // STACK
+                </p>
+
+                <span class="enter">
+                    ENTER MODULE →
+                </span>
+
+            </a>
+
+
+
+            <!-- TERMINAL -->
+
+            <a href="pages/terminal.html"
+               class="module">
+
+                <span class="module-number">
+                    04
+                </span>
+
+                <div class="module-icon">
+                    &gt;_
+                </div>
+
+                <h2>
+                    TERMINAL
+                </h2>
+
+                <p>
+                    LIVE // CONSOLE
+                </p>
+
+                <span class="enter">
+                    ENTER MODULE →
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         REACTOR
+    ================================================= -->
+
+    <div class="reactor">
+
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+
+        <div class="core"></div>
+
+    </div>
+
+
+
+    <!-- CONNECTORS -->
+
+    <div class="connector c1"></div>
+
+    <div class="connector c2"></div>
+
+
+
+    <!-- =================================================
+         CONSOLE
+    ================================================= -->
+
+    <section class="console">
+
+
+        <div class="console-left">
+
+            <div class="console-title">
+                &gt; SYSTEM_CONSOLE
+            </div>
+
+            <div>
+                [23:47:01] System Interface Loaded
+            </div>
+
+            <div>
+                [23:47:02] All Modules Online
+            </div>
+
+            <div>
+                [23:47:03] Developer Environment Ready
+            </div>
+
+            <div>
+                [23:47:04]
+                <span class="green">
+                    Awaiting Command...
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="console-right">
+
+            <div class="console-title">
+                ◉ GLOBAL_NODE_STATUS
+            </div>
+
+            <div>
+                NETWORK : STABLE
+            </div>
+
+            <div>
+                CONNECTION : ENCRYPTED
+            </div>
+
+            <div class="map"></div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================= -->
+
+    <footer class="footer">
+
+        <span>
+            // DEVELOPER SYSTEM INTERFACE
+        </span>
+
+        <span>
+            ENCRYPTED • SECURE • PRIVATE
+        </span>
+
+        <span>
+            © 2026 KRISHNA.DEV
+        </span>
+
+    </footer>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   MATRIX RAIN
+===================================================== */
+
+const canvas =
+    document.getElementById("matrix");
+
+const ctx =
+    canvas.getContext("2d");
+
+let width =
+    canvas.width =
+    window.innerWidth;
+
+let height =
+    canvas.height =
+    window.innerHeight;
+
+const characters =
+    "01ABCDEFGHIJKLMNOPQRSTUVWXYZ{}[]<>/$#@";
+
+const fontSize = 13;
+
+let columns =
+    Math.floor(width / fontSize);
+
+let drops =
+    Array(columns).fill(1);
+
+
+function matrixRain(){
+
+    ctx.fillStyle =
+        "rgba(1,3,1,.08)";
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+    ctx.font =
+        fontSize + "px monospace";
+
+
+    for(
+        let i=0;
+        i<drops.length;
+        i++
+    ){
+
+        const text =
+            characters[
+                Math.floor(
+                    Math.random()
+                    *
+                    characters.length
+                )
+            ];
+
+
+        ctx.fillStyle =
+            "#00ff41";
+
+
+        ctx.fillText(
+            text,
+            i * fontSize,
+            drops[i] * fontSize
+        );
+
+
+        if(
+            drops[i] * fontSize > height
+            &&
+            Math.random() > .975
+        ){
+
+            drops[i] = 0;
+
+        }
+
+        drops[i]++;
+
+    }
+
+}
+
+
+setInterval(
+    matrixRain,
+    45
+);
+
+
+
+/* =====================================================
+   RESIZE
+===================================================== */
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        width =
+            canvas.width =
+            window.innerWidth;
+
+        height =
+            canvas.height =
+            window.innerHeight;
+
+        columns =
+            Math.floor(
+                width / fontSize
+            );
+
+        drops =
+            Array(columns).fill(1);
+
+    }
+);
+
+
+
+/* =====================================================
+   CLOCK
+===================================================== */
+
+function updateClock(){
+
+    const now =
+        new Date();
+
+
+    document
+        .getElementById("clock")
+        .textContent =
+        now.toLocaleTimeString(
+            "en-GB"
+        );
+
+
+    document
+        .getElementById("date")
+        .textContent =
+        now.toLocaleDateString(
+            "en-GB"
+        );
+
+}
+
+
+setInterval(
+    updateClock,
+    1000
+);
+
+updateClock();
+
+
+
+/* =====================================================
+   RANDOM SYSTEM LOG
+===================================================== */
+
+const logs = [
+
+    "Developer node synchronized",
+
+    "Encrypted channel stable",
+
+    "Project database loaded",
+
+    "Security protocols active",
+
+    "Interface integrity verified",
+
+    "Waiting for module selection"
+
+];
+
+
+setInterval(function(){
+
+    const consoleBox =
+        document.querySelector(
+            ".console-left"
+        );
+
+    const old =
+        consoleBox.querySelector(
+            ".dynamic-log"
+        );
+
+    if(old){
+        old.remove();
+    }
+
+    const line =
+        document.createElement(
+            "div"
+        );
+
+    line.className =
+        "dynamic-log";
+
+    line.innerHTML =
+        "[SYSTEM] " +
+        logs[
+            Math.floor(
+                Math.random()
+                *
+                logs.length
+            )
+        ];
+
+    consoleBox.appendChild(line);
+
+},4000);
+
+
+
+/* =====================================================
+   MOUSE HUD EFFECT
+===================================================== */
+
+document.addEventListener(
+    "mousemove",
+    function(e){
+
+        const x =
+            (e.clientX /
+            window.innerWidth -
+            .5) * 8;
+
+        const y =
+            (e.clientY /
+            window.innerHeight -
+            .5) * 8;
+
+
+        const center =
+            document.querySelector(
+                ".center"
+            );
+
+
+        center.style.transform =
+            `translate(${x}px,${y}px)`;
+
+    }
+);
+
+
+</script>
+
+</body>
+</html>
