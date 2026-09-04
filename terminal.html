@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Terminal // Krishna</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+
+        /* =========================
+           TERMINAL PAGE
+        ========================= */
+
+        body {
+            background: #020403;
+            color: #00ff41;
+            font-family: "Courier New", monospace;
+            overflow-x: hidden;
+        }
+
+        .terminal-page {
+            min-height: 100vh;
+            padding: 30px 6%;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .terminal-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0 25px;
+            border-bottom: 1px solid rgba(0,255,65,.15);
+            margin-bottom: 50px;
+        }
+
+        .terminal-path {
+            color: #667368;
+            font-size: 12px;
+        }
+
+        .terminal-path span {
+            color: #00ff41;
+        }
+
+        .page-navigation {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .page-navigation a {
+            position: relative;
+            color: #667368;
+            text-decoration: none;
+            font-size: 10px;
+            transition: .3s;
+        }
+
+        .page-navigation a:hover {
+            color: #00ff41;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .page-navigation a.active {
+            color: #00ff41;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .page-navigation a.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -8px;
+            height: 1px;
+            background: #00ff41;
+            box-shadow: 0 0 8px #00ff41;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .terminal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .terminal-header h1 {
+            font-size: clamp(35px, 6vw, 70px);
+            letter-spacing: 8px;
+            margin: 0;
+            color: #00ff41;
+            text-shadow:
+                0 0 10px #00ff41,
+                0 0 30px rgba(0,255,65,.5);
+        }
+
+        .terminal-header p {
+            color: #667368;
+            font-size: 11px;
+            letter-spacing: 3px;
+            margin-top: 15px;
+        }
+
+
+        /* =========================
+           TERMINAL WINDOW
+        ========================= */
+
+        .terminal-window {
+            max-width: 1100px;
+            margin: auto;
+            border: 1px solid rgba(0,255,65,.35);
+            background: #010201;
+
+            box-shadow:
+                0 0 30px rgba(0,255,65,.08),
+                inset 0 0 40px rgba(0,255,65,.02);
+        }
+
+
+        /* =========================
+           TERMINAL TOP BAR
+        ========================= */
+
+        .terminal-top {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 0 18px;
+
+            border-bottom: 1px solid rgba(0,255,65,.2);
+
+            background: rgba(0,255,65,.025);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #243027;
+        }
+
+        .dot.green {
+            background: #00ff41;
+            box-shadow: 0 0 10px #00ff41;
+        }
+
+        .terminal-title {
+            margin-left: 12px;
+            color: #667368;
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           TERMINAL OUTPUT
+        ========================= */
+
+        #terminalOutput {
+            height: 480px;
+            overflow-y: auto;
+
+            padding: 28px;
+
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        #terminalOutput::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #terminalOutput::-webkit-scrollbar-thumb {
+            background: #00ff41;
+        }
+
+        .line {
+            margin-bottom: 6px;
+        }
+
+        .command {
+            color: #00ff41;
+        }
+
+        .output {
+            color: #839188;
+        }
+
+        .success {
+            color: #00ff41;
+        }
+
+        .warning {
+            color: #ffcc00;
+        }
+
+        .error {
+            color: #ff3131;
+        }
+
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        .input-area {
+            display: flex;
+            align-items: center;
+
+            padding: 18px 28px 28px;
+
+            gap: 12px;
+        }
+
+        .prompt {
+            color: #00ff41;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        #commandInput {
+            flex: 1;
+
+            background: transparent;
+            border: none;
+            outline: none;
+
+            color: #00ff41;
+
+            font-family: inherit;
+            font-size: 13px;
+
+            caret-color: #00ff41;
+        }
+
+
+        /* =========================
+           QUICK COMMAND BUTTONS
+        ========================= */
+
+        .quick-commands {
+
+            max-width: 1100px;
+
+            margin: 30px auto 0;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 14px;
+        }
+
+        .quick-btn {
+
+            min-width: 125px;
+
+            padding: 14px 24px;
+
+            background: rgba(0,255,65,.035);
+
+            border: 1px solid rgba(0,255,65,.35);
+
+            color: #00ff41;
+
+            font-family: inherit;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 1.5px;
+
+            cursor: pointer;
+
+            transition: all .3s ease;
+        }
+
+        .quick-btn:hover {
+
+            background: rgba(0,255,65,.12);
+
+            border-color: #00ff41;
+
+            color: #00ff41;
+
+            box-shadow:
+                0 0 18px rgba(0,255,65,.25),
+                inset 0 0 12px rgba(0,255,65,.05);
+
+            transform: translateY(-3px);
+        }
+
+        .quick-btn:active {
+
+            transform: scale(.95);
+
+            box-shadow:
+                0 0 8px rgba(0,255,65,.3);
+        }
+
+
+        /* =========================
+           SYSTEM INFO
+        ========================= */
+
+        .system-info {
+
+            max-width: 1100px;
+
+            margin: 45px auto 0;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+        }
+
+        .info-box {
+
+            border: 1px solid rgba(0,255,65,.15);
+
+            padding: 20px;
+
+            background:
+                rgba(0,255,65,.02);
+
+            transition: .3s;
+        }
+
+        .info-box:hover {
+
+            border-color: rgba(0,255,65,.45);
+
+            box-shadow:
+                0 0 15px rgba(0,255,65,.08);
+        }
+
+        .info-box small {
+
+            display: block;
+
+            color: #667368;
+
+            font-size: 8px;
+
+            margin-bottom: 10px;
+
+            letter-spacing: 1px;
+        }
+
+        .info-box strong {
+
+            color: #00ff41;
+
+            font-size: 12px;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 800px) {
+
+            .terminal-nav {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 20px;
+            }
+
+            .page-navigation {
+
+                gap: 12px;
+
+                flex-wrap: wrap;
+            }
+
+            #terminalOutput {
+
+                height: 400px;
+
+                font-size: 11px;
+            }
+
+            .system-info {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .quick-btn {
+
+                min-width: 110px;
+
+                padding: 13px 18px;
+            }
+        }
+
+
+        @media(max-width: 500px) {
+
+            .system-info {
+
+                grid-template-columns: 1fr;
+            }
+
+            .quick-commands {
+
+                gap: 10px;
+            }
+
+            .quick-btn {
+
+                width: 100%;
+
+                min-width: 0;
+            }
+
+            .input-area {
+
+                padding-left: 15px;
+
+                padding-right: 15px;
+            }
+
+            .prompt {
+
+                font-size: 10px;
+            }
+
+            #commandInput {
+
+                font-size: 11px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="terminal-page">
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <header class="terminal-nav">
+
+        <div class="terminal-path">
+
+            <span>root@krishna</span>:~/terminal#
+
+        </div>
+
+
+        <div class="page-navigation">
+
+            <a href="../index.html">
+                HOME
+            </a>
+
+            <a href="about.html">
+                ABOUT
+            </a>
+
+            <a href="skills.html">
+                SKILLS
+            </a>
+
+            <a href="projects.html">
+                PROJECTS
+            </a>
+
+            <a href="terminal.html"
+               class="active">
+
+                TERMINAL
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <section class="terminal-header">
+
+        <h1>
+            LIVE TERMINAL
+        </h1>
+
+        <p>
+            INTERACTIVE DEVELOPER CONSOLE
+            // ACCESS GRANTED
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         TERMINAL
+    ========================= -->
+
+    <section class="terminal-window">
+
+
+        <div class="terminal-top">
+
+            <div class="dot green"></div>
+
+            <div class="dot"></div>
+
+            <div class="dot"></div>
+
+            <div class="terminal-title">
+
+                krishna@developer-system
+                — bash
+
+            </div>
+
+        </div>
+
+
+
+        <div id="terminalOutput">
+
+            <div class="line success">
+
+                [SYSTEM]
+                Terminal initialized...
+
+            </div>
+
+
+            <div class="line success">
+
+                [SYSTEM]
+                Security verification passed.
+
+            </div>
+
+
+            <div class="line output">
+
+                Welcome to Krishna's Developer Terminal.
+
+            </div>
+
+
+            <br>
+
+
+            <div class="line output">
+
+                Type
+                <span class="command">
+                    help
+                </span>
+                to view available commands.
+
+            </div>
+
+        </div>
+
+
+
+        <div class="input-area">
+
+            <span class="prompt">
+
+                root@krishna:~$
+
+            </span>
+
+
+            <input
+                type="text"
+                id="commandInput"
+                autofocus
+                autocomplete="off"
+                placeholder="type command..."
+            >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         QUICK COMMANDS
+    ========================= -->
+
+    <div class="quick-commands">
+
+
+        <button
+            class="quick-btn"
+            onclick="runCommand('help')">
+
+            [ HELP ]
+
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="runCommand('whoami')">
+
+            [ WHOAMI ]
+
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="runCommand('skills')">
+
+            [ SKILLS ]
+
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="runCommand('projects')">
+
+            [ PROJECTS ]
+
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="runCommand('about')">
+
+            [ ABOUT ]
+
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="runCommand('status')">
+
+            [ STATUS ]
+
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="runCommand('secret')">
+
+            [ SECRET ]
+
+        </button>
+
+
+        <button
+            class="quick-btn"
+            onclick="runCommand('clear')">
+
+            [ CLEAR ]
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         SYSTEM INFO
+    ========================= -->
+
+    <section class="system-info">
+
+
+        <div class="info-box">
+
+            <small>
+                SYSTEM
+            </small>
+
+            <strong>
+                ONLINE
+            </strong>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <small>
+                SECURITY
+            </small>
+
+            <strong>
+                ACTIVE
+            </strong>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <small>
+                ACCESS
+            </small>
+
+            <strong>
+                DEVELOPER
+            </strong>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <small>
+                UPTIME
+            </small>
+
+            <strong id="uptime">
+                00:00:00
+            </strong>
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+    const terminal =
+        document.getElementById(
+            "terminalOutput"
+        );
+
+
+    const input =
+        document.getElementById(
+            "commandInput"
+        );
+
+
+
+    /* =========================
+       PRINT OUTPUT
+    ========================= */
+
+    function print(text, type = "output") {
+
+        const line =
+            document.createElement("div");
+
+        line.className =
+            "line " + type;
+
+        line.innerHTML =
+            text;
+
+        terminal.appendChild(line);
+
+        terminal.scrollTop =
+            terminal.scrollHeight;
+    }
+
+
+
+    /* =========================
+       RUN COMMAND
+    ========================= */
+
+    function runCommand(command) {
+
+        command =
+            command.trim().toLowerCase();
+
+
+        if (!command) return;
+
+
+        print(
+            "root@krishna:~$ " + command,
+            "command"
+        );
+
+
+
+        /* HELP */
+
+        if (command === "help") {
+
+            print(
+                "AVAILABLE COMMANDS",
+                "success"
+            );
+
+            print(
+                "────────────────────────"
+            );
+
+            print(
+                "whoami    → identify developer"
+            );
+
+            print(
+                "about     → developer information"
+            );
+
+            print(
+                "skills    → display skill matrix"
+            );
+
+            print(
+                "projects  → show project database"
+            );
+
+            print(
+                "status    → system status"
+            );
+
+            print(
+                "date      → current system time"
+            );
+
+            print(
+                "secret    → classified command"
+            );
+
+            print(
+                "clear     → clear terminal"
+            );
+
+        }
+
+
+
+        /* WHOAMI */
+
+        else if (command === "whoami") {
+
+            print(
+                "USER: KRISHNA",
+                "success"
+            );
+
+            print(
+                "ROLE: DEVELOPER"
+            );
+
+            print(
+                "MODE: BUILDING"
+            );
+
+            print(
+                "MISSION: CREATE • LEARN • BUILD"
+            );
+
+        }
+
+
+
+        /* ABOUT */
+
+        else if (command === "about") {
+
+            print(
+                "Loading developer profile...",
+                "success"
+            );
+
+            print(
+                "Krishna is a developer focused on learning technologies and building projects."
+            );
+
+        }
+
+
+
+        /* SKILLS */
+
+        else if (command === "skills") {
+
+            print(
+                "LOADING SKILL MATRIX...",
+                "success"
+            );
+
+            print(
+                "HTML        [█████████░] 90%"
+            );
+
+            print(
+                "CSS         [████████░░] 85%"
+            );
+
+            print(
+                "JavaScript  [████████░░] 80%"
+            );
+
+            print(
+                "Python      [███████░░░] 75%"
+            );
+
+            print(
+                "C/C++       [███████░░░] 70%"
+            );
+
+            print(
+                "SQL         [██████░░░░] 65%"
+            );
+
+        }
+
+
+
+        /* PROJECTS */
+
+        else if (command === "projects") {
+
+            print(
+                "ACCESSING PROJECT VAULT...",
+                "success"
+            );
+
+            print(
+                "PROJECT_001 — Cyber Portfolio"
+            );
+
+            print(
+                "PROJECT_002 — AI Chatbot"
+            );
+
+            print(
+                "PROJECT_003 — Automation Core"
+            );
+
+            print(
+                "PROJECT_004 — Database System"
+            );
+
+            print(
+                "PROJECT_005 — Secret System"
+            );
+
+            print(
+                "PROJECT_006 — Developer Terminal"
+            );
+
+        }
+
+
+
+        /* STATUS */
+
+        else if (command === "status") {
+
+            print(
+                "SYSTEM STATUS",
+                "success"
+            );
+
+            print(
+                "CORE       : ONLINE"
+            );
+
+            print(
+                "SECURITY   : ACTIVE"
+            );
+
+            print(
+                "DATABASE   : CONNECTED"
+            );
+
+            print(
+                "NETWORK    : STABLE"
+            );
+
+        }
+
+
+
+        /* DATE */
+
+        else if (command === "date") {
+
+            print(
+                new Date().toString(),
+                "success"
+            );
+
+        }
+
+
+
+        /* SECRET */
+
+        else if (command === "secret") {
+
+            print(
+                "⚠ ACCESSING CLASSIFIED FILE...",
+                "warning"
+            );
+
+
+            setTimeout(function() {
+
+                print(
+                    "ACCESS GRANTED.",
+                    "success"
+                );
+
+                print(
+                    "You found the hidden terminal command.",
+                    "success"
+                );
+
+                print(
+                    "SYSTEM MESSAGE: Keep building. 🚀",
+                    "command"
+                );
+
+            }, 500);
+
+        }
+
+
+
+        /* CLEAR */
+
+        else if (command === "clear") {
+
+            terminal.innerHTML = "";
+
+        }
+
+
+
+        /* UNKNOWN COMMAND */
+
+        else {
+
+            print(
+                "command not found: " +
+                command,
+                "error"
+            );
+
+            print(
+                "Type 'help' to see available commands."
+            );
+
+        }
+
+    }
+
+
+
+    /* =========================
+       ENTER KEY
+    ========================= */
+
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                runCommand(
+                    input.value
+                );
+
+                input.value = "";
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================
+       UPTIME
+    ========================= */
+
+    let startTime =
+        Date.now();
+
+
+    function updateUptime() {
+
+        const seconds =
+            Math.floor(
+                (Date.now() - startTime)
+                / 1000
+            );
+
+
+        const hours =
+            String(
+                Math.floor(
+                    seconds / 3600
+                )
+            ).padStart(2, "0");
+
+
+        const minutes =
+            String(
+                Math.floor(
+                    (seconds % 3600) / 60
+                )
+            ).padStart(2, "0");
+
+
+        const secs =
+            String(
+                seconds % 60
+            ).padStart(2, "0");
+
+
+        document
+            .getElementById("uptime")
+            .textContent =
+            `${hours}:${minutes}:${secs}`;
+
+    }
+
+
+    setInterval(
+        updateUptime,
+        1000
+    );
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ABOUT // KRISHNA</title>
+
+<link rel="stylesheet" href="../style.css">
+
+<style>
+
+/* ================================
+   CORE
+================================ */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#010301;
+    color:#00ff41;
+    font-family:"Courier New",monospace;
+    overflow-x:hidden;
+}
+
+.about-page{
+    min-height:100vh;
+    padding:25px 5%;
+    position:relative;
+}
+
+
+/* ================================
+   NAVIGATION
+================================ */
+
+.about-nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px 0 22px;
+
+    border-bottom:
+    1px solid rgba(0,255,65,.25);
+
+    margin-bottom:45px;
+}
+
+.path{
+    color:#667368;
+    font-size:11px;
+}
+
+.path span{
+    color:#00ff41;
+}
+
+.page-navigation{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.page-navigation a{
+    position:relative;
+    color:#667368;
+    text-decoration:none;
+    font-size:10px;
+    transition:.3s;
+}
+
+.page-navigation a:hover{
+    color:#00ff41;
+    text-shadow:0 0 10px #00ff41;
+}
+
+.page-navigation a.active{
+    color:#00ff41;
+    text-shadow:0 0 10px #00ff41;
+}
+
+.page-navigation a.active::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:-8px;
+
+    height:1px;
+
+    background:#00ff41;
+
+    box-shadow:0 0 8px #00ff41;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.page-header{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.warning{
+    color:#ff3030;
+
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    margin-bottom:15px;
+
+    animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:.3;
+    }
+}
+
+.page-header h1{
+    font-size:
+    clamp(42px,7vw,85px);
+
+    letter-spacing:7px;
+
+    color:#00ff41;
+
+    text-shadow:
+    0 0 10px #00ff41,
+    0 0 30px #00ff41,
+    0 0 60px rgba(0,255,65,.4);
+}
+
+.page-header p{
+    margin-top:15px;
+
+    color:#627067;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+}
+
+
+/* ================================
+   MAIN GRID
+================================ */
+
+.identity-grid{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    .8fr 1.5fr;
+
+    gap:22px;
+}
+
+
+/* ================================
+   PANELS
+================================ */
+
+.panel{
+
+    position:relative;
+
+    border:1px solid rgba(0,255,65,.3);
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(0,255,65,.045),
+        rgba(0,0,0,.8)
+    );
+
+    padding:25px;
+
+    overflow:hidden;
+
+    clip-path:
+    polygon(
+        0 12px,
+        12px 0,
+        calc(100% - 12px) 0,
+        100% 12px,
+        100% calc(100% - 12px),
+        calc(100% - 12px) 100%,
+        12px 100%,
+        0 calc(100% - 12px)
+    );
+}
+
+.panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:60px;
+    height:2px;
+
+    background:#00ff41;
+
+    box-shadow:0 0 12px #00ff41;
+}
+
+.panel-title{
+
+    color:#00ff41;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    margin-bottom:22px;
+}
+
+
+/* ================================
+   PROFILE
+================================ */
+
+.profile{
+
+    text-align:center;
+}
+
+.avatar{
+
+    width:130px;
+    height:130px;
+
+    margin:10px auto 20px;
+
+    border:1px solid #00ff41;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    box-shadow:
+    0 0 20px rgba(0,255,65,.2);
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    50%{
+        box-shadow:
+        0 0 35px rgba(0,255,65,.4);
+    }
+
+}
+
+.avatar::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:8px;
+
+    border:
+    1px dashed
+    rgba(0,255,65,.6);
+
+    border-radius:50%;
+
+    animation:spin 8s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.avatar span{
+
+    font-size:38px;
+
+    text-shadow:
+    0 0 15px #00ff41;
+}
+
+.profile h2{
+
+    color:#d8ffe1;
+
+    font-size:22px;
+
+    letter-spacing:3px;
+
+    margin-bottom:8px;
+}
+
+.role{
+
+    color:#00ff41;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    margin-bottom:20px;
+}
+
+
+/* ================================
+   PROFILE DATA
+================================ */
+
+.profile-data{
+
+    text-align:left;
+
+    border-top:
+    1px solid rgba(0,255,65,.12);
+
+    padding-top:18px;
+}
+
+.data-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin:12px 0;
+
+    font-size:9px;
+}
+
+.data-row span:first-child{
+
+    color:#59665e;
+}
+
+.data-row span:last-child{
+
+    color:#00ff41;
+
+    text-align:right;
+}
+
+
+/* ================================
+   DESCRIPTION
+================================ */
+
+.description{
+
+    color:#7b897f;
+
+    font-size:11px;
+
+    line-height:2;
+
+    margin-bottom:25px;
+}
+
+.highlight{
+
+    color:#00ff41;
+}
+
+
+/* ================================
+   MISSION BOX
+================================ */
+
+.mission{
+
+    border-left:
+    2px solid #00ff41;
+
+    padding:15px 18px;
+
+    background:
+    rgba(0,255,65,.035);
+
+    color:#8b988f;
+
+    font-size:10px;
+
+    line-height:1.9;
+}
+
+.mission strong{
+    color:#00ff41;
+}
+
+
+/* ================================
+   STATS
+================================ */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:12px;
+
+    margin-top:22px;
+}
+
+.stat{
+
+    padding:18px 10px;
+
+    border:
+    1px solid
+    rgba(0,255,65,.18);
+
+    text-align:center;
+}
+
+.stat strong{
+
+    display:block;
+
+    color:#00ff41;
+
+    font-size:20px;
+
+    margin-bottom:7px;
+}
+
+.stat span{
+
+    color:#59665e;
+
+    font-size:8px;
+
+    letter-spacing:1px;
+}
+
+
+/* ================================
+   JOURNEY
+================================ */
+
+.journey{
+
+    max-width:1200px;
+
+    margin:25px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:18px;
+}
+
+.timeline{
+
+    position:relative;
+
+    padding:22px;
+
+    border:
+    1px solid
+    rgba(0,255,65,.22);
+
+    background:
+    rgba(0,255,65,.025);
+}
+
+.timeline-number{
+
+    color:#00ff41;
+
+    font-size:9px;
+
+    margin-bottom:15px;
+}
+
+.timeline h3{
+
+    color:#d8ffe1;
+
+    font-size:15px;
+
+    letter-spacing:1px;
+
+    margin-bottom:10px;
+}
+
+.timeline p{
+
+    color:#667368;
+
+    font-size:9px;
+
+    line-height:1.8;
+}
+
+
+/* ================================
+   SYSTEM TERMINAL
+================================ */
+
+.system-terminal{
+
+    max-width:1200px;
+
+    margin:25px auto 0;
+
+    border:
+    1px solid
+    rgba(0,255,65,.25);
+
+    background:#010201;
+}
+
+.terminal-head{
+
+    padding:12px 18px;
+
+    border-bottom:
+    1px solid
+    rgba(0,255,65,.15);
+
+    color:#667368;
+
+    font-size:9px;
+}
+
+.terminal-head span{
+    color:#00ff41;
+}
+
+.terminal-body{
+
+    padding:20px;
+
+    color:#667368;
+
+    font-size:9px;
+
+    line-height:2;
+}
+
+.terminal-body .green{
+    color:#00ff41;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:850px){
+
+    .about-nav{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+    }
+
+    .page-navigation{
+
+        gap:12px;
+
+        flex-wrap:wrap;
+    }
+
+    .identity-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .journey{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .about-page{
+        padding:20px 4%;
+    }
+
+    .page-header h1{
+
+        font-size:42px;
+
+        letter-spacing:4px;
+    }
+
+    .stats{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="about-page">
+
+
+<!-- =========================================
+     NAV
+========================================= -->
+
+<header class="about-nav">
+
+    <div class="path">
+
+        <span>root@krishna</span>:~/about#
+
+    </div>
+
+
+    <nav class="page-navigation">
+
+        <a href="../index.html">
+            HOME
+        </a>
+
+        <a href="about.html"
+           class="active">
+            ABOUT
+        </a>
+
+        <a href="skills.html">
+            SKILLS
+        </a>
+
+        <a href="projects.html">
+            PROJECTS
+        </a>
+
+        <a href="terminal.html">
+            TERMINAL
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<section class="page-header">
+
+    <div class="warning">
+
+        ⚠ CLASSIFIED PROFILE // AUTHORIZED ACCESS ONLY ⚠
+
+    </div>
+
+    <h1>
+        IDENTITY
+    </h1>
+
+    <p>
+        DEVELOPER PROFILE // NODE INFORMATION
+    </p>
+
+</section>
+
+
+
+<!-- =========================================
+     IDENTITY
+========================================= -->
+
+<section class="identity-grid">
+
+
+    <!-- PROFILE -->
+
+    <div class="panel profile">
+
+        <div class="panel-title">
+            &gt; USER_PROFILE
+        </div>
+
+
+        <div class="avatar">
+
+            <span>
+                &lt;/&gt;
+            </span>
+
+        </div>
+
+
+        <h2>
+            KRISHNA
+        </h2>
+
+        <div class="role">
+            DEVELOPER // BUILDER
+        </div>
+
+
+        <div class="profile-data">
+
+            <div class="data-row">
+                <span>USER_ID</span>
+                <span>KRISHNA-DEV</span>
+            </div>
+
+            <div class="data-row">
+                <span>ROLE</span>
+                <span>DEVELOPER</span>
+            </div>
+
+            <div class="data-row">
+                <span>MODE</span>
+                <span>BUILDING</span>
+            </div>
+
+            <div class="data-row">
+                <span>STATUS</span>
+                <span>● ONLINE</span>
+            </div>
+
+            <div class="data-row">
+                <span>CLEARANCE</span>
+                <span>LEVEL 07</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DESCRIPTION -->
+
+    <div class="panel">
+
+        <div class="panel-title">
+            &gt; WHO_AM_I
+        </div>
+
+
+        <p class="description">
+
+            I'm
+            <span class="highlight">
+                Krishna
+            </span>,
+            a developer who enjoys turning ideas into
+            real digital experiences.
+
+            <br><br>
+
+            My focus is not only writing code —
+            it's understanding how things work,
+            experimenting with new technologies,
+            and building projects that actually do something.
+
+            <br><br>
+
+            Every project is another system to explore,
+            break down, understand and rebuild better.
+
+        </p>
+
+
+        <div class="mission">
+
+            <strong>
+                PRIMARY MISSION
+            </strong>
+
+            <br><br>
+
+            LEARN → BUILD → EXPERIMENT → IMPROVE
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <strong>
+                    01
+                </strong>
+
+                <span>
+                    MINDSET
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>
+                    24/7
+                </strong>
+
+                <span>
+                    CURIOSITY
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>
+                    ∞
+                </strong>
+
+                <span>
+                    IDEAS
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     JOURNEY
+========================================= -->
+
+<section class="journey">
+
+
+    <div class="timeline">
+
+        <div class="timeline-number">
+            NODE_01
+        </div>
+
+        <h3>
+            THE BEGINNING
+        </h3>
+
+        <p>
+            Started exploring programming,
+            understanding how websites and
+            software work, and learning the
+            fundamentals of development.
+        </p>
+
+    </div>
+
+
+    <div class="timeline">
+
+        <div class="timeline-number">
+            NODE_02
+        </div>
+
+        <h3>
+            EXPERIMENTATION
+        </h3>
+
+        <p>
+            Started building projects,
+            experimenting with different
+            technologies and turning ideas
+            into working systems.
+        </p>
+
+    </div>
+
+
+    <div class="timeline">
+
+        <div class="timeline-number">
+            NODE_03
+        </div>
+
+        <h3>
+            NEXT LEVEL
+        </h3>
+
+        <p>
+            Continuously learning,
+            improving development skills
+            and exploring new ways to
+            create better digital products.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     SYSTEM TERMINAL
+========================================= -->
+
+<section class="system-terminal">
+
+    <div class="terminal-head">
+
+        <span>
+            root@krishna
+        </span>:~/about/profile$
+
+    </div>
+
+
+    <div class="terminal-body">
+
+        <div>
+            &gt; loading identity profile...
+        </div>
+
+        <div class="green">
+            [OK] Identity verified
+        </div>
+
+        <div class="green">
+            [OK] Developer node active
+        </div>
+
+        <div>
+            &gt; mission: learn • build • improve
+        </div>
+
+        <div class="green">
+            &gt; profile access complete.
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<script>
+
+/* =========================================
+   SMALL LIVE EFFECT
+========================================= */
+
+const terminal =
+    document.querySelector(
+        ".terminal-body"
+    );
+
+setInterval(function(){
+
+    const cursor =
+        document.createElement("span");
+
+    cursor.className =
+        "green";
+
+    cursor.textContent =
+        "▋";
+
+    terminal.appendChild(cursor);
+
+    setTimeout(function(){
+
+        cursor.remove();
+
+    },500);
+
+},1500);
+
+</script>
+
+</body>
+</html>

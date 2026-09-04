@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SKILLS // KRISHNA</title>
+
+<link rel="stylesheet" href="../style.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#010301;
+    color:#00ff41;
+    font-family:"Courier New",monospace;
+    overflow-x:hidden;
+}
+
+.skills-page{
+    min-height:100vh;
+    padding:25px 5%;
+}
+
+
+/* ================================
+   NAVIGATION
+================================ */
+
+.skills-nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px 0 22px;
+
+    border-bottom:
+    1px solid rgba(0,255,65,.25);
+
+    margin-bottom:45px;
+}
+
+.path{
+    color:#667368;
+    font-size:11px;
+}
+
+.path span{
+    color:#00ff41;
+}
+
+.page-navigation{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.page-navigation a{
+    position:relative;
+    color:#667368;
+    text-decoration:none;
+    font-size:10px;
+    transition:.3s;
+}
+
+.page-navigation a:hover{
+    color:#00ff41;
+    text-shadow:0 0 10px #00ff41;
+}
+
+.page-navigation a.active{
+    color:#00ff41;
+    text-shadow:0 0 10px #00ff41;
+}
+
+.page-navigation a.active::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:-8px;
+
+    height:1px;
+
+    background:#00ff41;
+
+    box-shadow:0 0 8px #00ff41;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.skills-header{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.warning{
+    color:#ff3030;
+
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    margin-bottom:15px;
+
+    animation:blink 1.4s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:.3;
+    }
+}
+
+.skills-header h1{
+    font-size:
+    clamp(42px,7vw,85px);
+
+    letter-spacing:7px;
+
+    color:#00ff41;
+
+    text-shadow:
+    0 0 10px #00ff41,
+    0 0 30px #00ff41,
+    0 0 60px rgba(0,255,65,.4);
+}
+
+.skills-header p{
+    color:#667368;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    margin-top:15px;
+}
+
+
+/* ================================
+   SCAN STATUS
+================================ */
+
+.scan-status{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    border:
+    1px solid rgba(0,255,65,.25);
+
+    padding:18px 22px;
+
+    background:
+    rgba(0,255,65,.025);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.scan-left{
+
+    color:#667368;
+
+    font-size:9px;
+}
+
+.scan-left span{
+    color:#00ff41;
+}
+
+.scan-right{
+
+    color:#00ff41;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+}
+
+
+/* ================================
+   MAIN GRID
+================================ */
+
+.skill-layout{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    1.5fr .8fr;
+
+    gap:20px;
+}
+
+
+/* ================================
+   PANEL
+================================ */
+
+.panel{
+
+    border:
+    1px solid rgba(0,255,65,.28);
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(0,255,65,.045),
+        rgba(0,0,0,.8)
+    );
+
+    padding:25px;
+
+    position:relative;
+
+    clip-path:
+    polygon(
+        0 12px,
+        12px 0,
+        calc(100% - 12px) 0,
+        100% 12px,
+        100% calc(100% - 12px),
+        calc(100% - 12px) 100%,
+        12px 100%,
+        0 calc(100% - 12px)
+    );
+}
+
+.panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:60px;
+    height:2px;
+
+    background:#00ff41;
+
+    box-shadow:0 0 12px #00ff41;
+}
+
+.panel-title{
+
+    color:#00ff41;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    margin-bottom:25px;
+}
+
+
+/* ================================
+   SKILL ROW
+================================ */
+
+.skill-row{
+
+    margin-bottom:25px;
+
+    position:relative;
+}
+
+.skill-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:9px;
+
+    font-size:10px;
+}
+
+.skill-name{
+    color:#d8ffe1;
+}
+
+.skill-percent{
+    color:#00ff41;
+}
+
+.skill-bar{
+
+    height:8px;
+
+    border:
+    1px solid rgba(0,255,65,.25);
+
+    padding:1px;
+}
+
+.skill-fill{
+
+    height:100%;
+
+    width:0;
+
+    background:
+    repeating-linear-gradient(
+        90deg,
+        #00ff41 0 7px,
+        transparent 7px 10px
+    );
+
+    box-shadow:
+    0 0 10px rgba(0,255,65,.5);
+
+    transition:
+    width 1.5s ease;
+}
+
+
+/* ================================
+   RIGHT COMMAND PANEL
+================================ */
+
+.command-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.command{
+
+    padding:15px;
+
+    border:
+    1px solid rgba(0,255,65,.16);
+
+    background:
+    rgba(0,255,65,.02);
+
+    color:#68766d;
+
+    font-size:9px;
+
+    transition:.3s;
+}
+
+.command:hover{
+
+    border-color:#00ff41;
+
+    color:#00ff41;
+
+    transform:
+    translateX(5px);
+
+    box-shadow:
+    0 0 15px rgba(0,255,65,.08);
+}
+
+.command strong{
+
+    color:#00ff41;
+
+    display:block;
+
+    margin-bottom:5px;
+}
+
+
+/* ================================
+   TECH MATRIX
+================================ */
+
+.tech-matrix{
+
+    max-width:1100px;
+
+    margin:20px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+}
+
+.tech-box{
+
+    min-height:120px;
+
+    border:
+    1px solid rgba(0,255,65,.22);
+
+    padding:20px;
+
+    background:
+    rgba(0,255,65,.025);
+
+    position:relative;
+
+    transition:.3s;
+}
+
+.tech-box:hover{
+
+    transform:
+    translateY(-5px);
+
+    border-color:#00ff41;
+
+    box-shadow:
+    0 0 20px rgba(0,255,65,.12);
+}
+
+.tech-number{
+
+    color:#405047;
+
+    font-size:9px;
+
+    margin-bottom:15px;
+}
+
+.tech-box h3{
+
+    color:#d8ffe1;
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+    margin-bottom:8px;
+}
+
+.tech-box p{
+
+    color:#59665e;
+
+    font-size:9px;
+
+    line-height:1.7;
+}
+
+
+/* ================================
+   SCAN TERMINAL
+================================ */
+
+.scan-terminal{
+
+    max-width:1100px;
+
+    margin:20px auto 0;
+
+    border:
+    1px solid rgba(0,255,65,.25);
+
+    background:#010201;
+}
+
+.terminal-head{
+
+    padding:12px 18px;
+
+    border-bottom:
+    1px solid rgba(0,255,65,.15);
+
+    color:#667368;
+
+    font-size:9px;
+}
+
+.terminal-head span{
+    color:#00ff41;
+}
+
+.terminal-body{
+
+    padding:20px;
+
+    color:#667368;
+
+    font-size:9px;
+
+    line-height:2;
+}
+
+.terminal-body .green{
+    color:#00ff41;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:850px){
+
+    .skills-nav{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+    }
+
+    .page-navigation{
+
+        gap:12px;
+
+        flex-wrap:wrap;
+    }
+
+    .skill-layout{
+
+        grid-template-columns:1fr;
+    }
+
+    .tech-matrix{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:550px){
+
+    .skills-page{
+        padding:20px 4%;
+    }
+
+    .skills-header h1{
+
+        font-size:42px;
+
+        letter-spacing:4px;
+    }
+
+    .scan-status{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+    }
+
+    .tech-matrix{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="skills-page">
+
+
+<!-- =========================================
+     NAVIGATION
+========================================= -->
+
+<header class="skills-nav">
+
+    <div class="path">
+
+        <span>root@krishna</span>:~/skills#
+
+    </div>
+
+
+    <nav class="page-navigation">
+
+        <a href="../index.html">
+            HOME
+        </a>
+
+        <a href="about.html">
+            ABOUT
+        </a>
+
+        <a href="skills.html"
+           class="active">
+            SKILLS
+        </a>
+
+        <a href="projects.html">
+            PROJECTS
+        </a>
+
+        <a href="terminal.html">
+            TERMINAL
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<section class="skills-header">
+
+    <div class="warning">
+
+        ⚠ DEVELOPER CAPABILITY SCAN INITIATED ⚠
+
+    </div>
+
+    <h1>
+        SKILL MATRIX
+    </h1>
+
+    <p>
+        TECHNOLOGY DATABASE // SYSTEM CAPABILITIES
+    </p>
+
+</section>
+
+
+
+<!-- =========================================
+     SCAN STATUS
+========================================= -->
+
+<section class="scan-status">
+
+    <div class="scan-left">
+
+        SCAN_TARGET :
+        <span>KRISHNA_DEV_NODE</span>
+
+        &nbsp; //
+
+        ENGINE :
+        <span>CAPABILITY_SCANNER</span>
+
+    </div>
+
+    <div class="scan-right">
+
+        ● SCAN COMPLETE
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     SKILL LAYOUT
+========================================= -->
+
+<section class="skill-layout">
+
+
+<!-- LEFT -->
+
+<div class="panel">
+
+    <div class="panel-title">
+
+        &gt; CORE_TECHNOLOGIES
+
+    </div>
+
+
+    <!-- HTML -->
+
+    <div class="skill-row">
+
+        <div class="skill-info">
+
+            <span class="skill-name">
+                HTML
+            </span>
+
+            <span class="skill-percent">
+                90%
+            </span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div class="skill-fill"
+                 data-width="90%">
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- CSS -->
+
+    <div class="skill-row">
+
+        <div class="skill-info">
+
+            <span class="skill-name">
+                CSS
+            </span>
+
+            <span class="skill-percent">
+                85%
+            </span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div class="skill-fill"
+                 data-width="85%">
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <div class="skill-row">
+
+        <div class="skill-info">
+
+            <span class="skill-name">
+                JAVASCRIPT
+            </span>
+
+            <span class="skill-percent">
+                80%
+            </span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div class="skill-fill"
+                 data-width="80%">
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- PYTHON -->
+
+    <div class="skill-row">
+
+        <div class="skill-info">
+
+            <span class="skill-name">
+                PYTHON
+            </span>
+
+            <span class="skill-percent">
+                75%
+            </span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div class="skill-fill"
+                 data-width="75%">
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- C CPP -->
+
+    <div class="skill-row">
+
+        <div class="skill-info">
+
+            <span class="skill-name">
+                C / C++
+            </span>
+
+            <span class="skill-percent">
+                70%
+            </span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div class="skill-fill"
+                 data-width="70%">
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SQL -->
+
+    <div class="skill-row">
+
+        <div class="skill-info">
+
+            <span class="skill-name">
+                SQL
+            </span>
+
+            <span class="skill-percent">
+                65%
+            </span>
+
+        </div>
+
+        <div class="skill-bar">
+
+            <div class="skill-fill"
+                 data-width="65%">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- RIGHT -->
+
+<div class="panel">
+
+    <div class="panel-title">
+
+        &gt; SYSTEM_CAPABILITIES
+
+    </div>
+
+
+    <div class="command">
+
+        <strong>
+            WEB DEVELOPMENT
+        </strong>
+
+        Building responsive interfaces
+        and interactive websites.
+
+    </div>
+
+
+    <div class="command">
+
+        <strong>
+            PROGRAMMING
+        </strong>
+
+        Problem solving,
+        logic and software development.
+
+    </div>
+
+
+    <div class="command">
+
+        <strong>
+            DATABASE
+        </strong>
+
+        Working with structured
+        data and SQL systems.
+
+    </div>
+
+
+    <div class="command">
+
+        <strong>
+            AUTOMATION
+        </strong>
+
+        Connecting services and
+        automating repetitive workflows.
+
+    </div>
+
+
+    <div class="command">
+
+        <strong>
+            AI EXPLORATION
+        </strong>
+
+        Experimenting with AI tools,
+        APIs and intelligent systems.
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     TECHNOLOGY MATRIX
+========================================= -->
+
+<section class="tech-matrix">
+
+
+    <div class="tech-box">
+
+        <div class="tech-number">
+            NODE_01
+        </div>
+
+        <h3>
+            FRONTEND
+        </h3>
+
+        <p>
+            HTML / CSS / JavaScript
+            <br>
+            UI / UX / Responsive Design
+        </p>
+
+    </div>
+
+
+    <div class="tech-box">
+
+        <div class="tech-number">
+            NODE_02
+        </div>
+
+        <h3>
+            BACKEND
+        </h3>
+
+        <p>
+            Programming logic
+            <br>
+            APIs / Server Concepts
+        </p>
+
+    </div>
+
+
+    <div class="tech-box">
+
+        <div class="tech-number">
+            NODE_03
+        </div>
+
+        <h3>
+            DATABASE
+        </h3>
+
+        <p>
+            SQL / Tables / Queries
+            <br>
+            Data Management
+        </p>
+
+    </div>
+
+
+    <div class="tech-box">
+
+        <div class="tech-number">
+            NODE_04
+        </div>
+
+        <h3>
+            AUTOMATION
+        </h3>
+
+        <p>
+            Workflows / Webhooks
+            <br>
+            API Integration
+        </p>
+
+    </div>
+
+
+    <div class="tech-box">
+
+        <div class="tech-number">
+            NODE_05
+        </div>
+
+        <h3>
+            TOOLS
+        </h3>
+
+        <p>
+            VS Code / Git
+            <br>
+            Developer Environment
+        </p>
+
+    </div>
+
+
+    <div class="tech-box">
+
+        <div class="tech-number">
+            NODE_06
+        </div>
+
+        <h3>
+            LEARNING
+        </h3>
+
+        <p>
+            DSA / New Technologies
+            <br>
+            Continuous Improvement
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     TERMINAL
+========================================= -->
+
+<section class="scan-terminal">
+
+    <div class="terminal-head">
+
+        <span>
+            root@krishna
+        </span>:~/skills/scanner$
+
+    </div>
+
+
+    <div class="terminal-body">
+
+        <div>
+            &gt; initializing capability scanner...
+        </div>
+
+        <div class="green">
+            [OK] Core technologies detected
+        </div>
+
+        <div class="green">
+            [OK] Skill matrix loaded
+        </div>
+
+        <div>
+            &gt; analyzing developer capabilities...
+        </div>
+
+        <div class="green">
+            [OK] Scan completed successfully.
+        </div>
+
+        <div>
+            &gt; system ready for next module.
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+
+<script>
+
+/* ================================
+   SKILL BAR ANIMATION
+================================ */
+
+const fills =
+    document.querySelectorAll(
+        ".skill-fill"
+    );
+
+setTimeout(function(){
+
+    fills.forEach(function(fill){
+
+        fill.style.width =
+            fill.dataset.width;
+
+    });
+
+},500);
+
+
+/* ================================
+   RANDOM SCAN TEXT
+================================ */
+
+const scanMessages = [
+
+    "Scanning capability nodes...",
+    "Analyzing technology matrix...",
+    "Checking developer modules...",
+    "Skill database synchronized...",
+    "Capability scan complete."
+
+];
+
+let index = 0;
+
+const scanText =
+    document.querySelector(
+        ".scan-left span"
+    );
+
+setInterval(function(){
+
+    scanText.textContent =
+        scanMessages[index];
+
+    index =
+        (index + 1)
+        % scanMessages.length;
+
+},3500);
+
+</script>
+
+</body>
+</html>

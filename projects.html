@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Projects // Krishna</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+
+        /* =========================
+           PROJECTS PAGE
+        ========================= */
+
+        body {
+            background: #020403;
+            color: #d8ffe1;
+            font-family: "Courier New", monospace;
+            overflow-x: hidden;
+        }
+
+        .projects-page {
+            min-height: 100vh;
+            padding: 30px 6%;
+            position: relative;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .projects-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0 25px;
+            border-bottom: 1px solid rgba(0,255,65,.15);
+            margin-bottom: 60px;
+        }
+
+        .terminal-path {
+            color: #667368;
+            font-size: 12px;
+        }
+
+        .terminal-path span {
+            color: #00ff41;
+        }
+
+        .page-navigation {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .page-navigation a {
+            position: relative;
+            color: #667368;
+            text-decoration: none;
+            font-size: 10px;
+            transition: .3s;
+        }
+
+        .page-navigation a:hover {
+            color: #00ff41;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .page-navigation a.active {
+            color: #00ff41;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .page-navigation a.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -8px;
+            height: 1px;
+            background: #00ff41;
+            box-shadow: 0 0 8px #00ff41;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .vault-header {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .classification {
+            color: #ff3131;
+            font-size: 11px;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: .35;
+            }
+        }
+
+        .vault-title {
+            font-size: clamp(40px, 7vw, 90px);
+            color: #00ff41;
+            letter-spacing: 8px;
+            margin: 0;
+            text-shadow:
+                0 0 10px #00ff41,
+                0 0 30px rgba(0,255,65,.5);
+        }
+
+        .vault-subtitle {
+            color: #667368;
+            margin-top: 15px;
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+
+
+        /* =========================
+           SYSTEM STATUS
+        ========================= */
+
+        .vault-status {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto 50px;
+        }
+
+        .status-box {
+            border: 1px solid rgba(0,255,65,.2);
+            background: rgba(0,255,65,.02);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .status-box small {
+            display: block;
+            color: #667368;
+            font-size: 9px;
+            margin-bottom: 8px;
+        }
+
+        .status-box strong {
+            color: #00ff41;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+
+        /* =========================
+           FILTER
+        ========================= */
+
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(0,255,65,.25);
+            color: #667368;
+            padding: 10px 18px;
+            font-family: inherit;
+            font-size: 10px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: #00ff41;
+            border-color: #00ff41;
+            box-shadow: 0 0 15px rgba(0,255,65,.15);
+        }
+
+
+        /* =========================
+           PROJECT GRID
+        ========================= */
+
+        .project-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .project-card {
+            position: relative;
+            border: 1px solid rgba(0,255,65,.2);
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,255,65,.04),
+                    rgba(0,0,0,.7)
+                );
+            padding: 28px;
+            overflow: hidden;
+            transition: .4s;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: #00ff41;
+            box-shadow: 0 0 15px #00ff41;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: #00ff41;
+            box-shadow:
+                0 0 25px rgba(0,255,65,.12),
+                inset 0 0 30px rgba(0,255,65,.03);
+        }
+
+
+        /* =========================
+           CARD TOP
+        ========================= */
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .project-id {
+            color: #667368;
+            font-size: 9px;
+        }
+
+        .project-status {
+            color: #00ff41;
+            border: 1px solid rgba(0,255,65,.3);
+            padding: 5px 8px;
+            font-size: 8px;
+            letter-spacing: 1px;
+        }
+
+        .project-status.locked {
+            color: #ff3131;
+            border-color: rgba(255,49,49,.4);
+        }
+
+
+        /* =========================
+           PROJECT CONTENT
+        ========================= */
+
+        .project-icon {
+            font-size: 35px;
+            color: #00ff41;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px #00ff41;
+        }
+
+        .project-card h2 {
+            color: #eaffef;
+            font-size: 21px;
+            margin: 0 0 12px;
+            letter-spacing: 2px;
+        }
+
+        .project-card p {
+            color: #78867c;
+            font-size: 11px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           TECH TAGS
+        ========================= */
+
+        .tech-stack {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .tech {
+            color: #00ff41;
+            background: rgba(0,255,65,.05);
+            border: 1px solid rgba(0,255,65,.15);
+            padding: 5px 8px;
+            font-size: 8px;
+        }
+
+
+        /* =========================
+           PROJECT BUTTON
+        ========================= */
+
+        .access-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid rgba(0,255,65,.3);
+            color: #00ff41;
+            font-family: inherit;
+            font-size: 10px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .access-btn:hover {
+            background: #00ff41;
+            color: #020403;
+            box-shadow: 0 0 20px rgba(0,255,65,.4);
+        }
+
+
+        /* =========================
+           TERMINAL SECTION
+        ========================= */
+
+        .project-terminal {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            border: 1px solid rgba(0,255,65,.2);
+            background: #010201;
+        }
+
+        .terminal-head {
+            padding: 12px 18px;
+            border-bottom: 1px solid rgba(0,255,65,.15);
+            color: #667368;
+            font-size: 10px;
+        }
+
+        .terminal-head span {
+            color: #00ff41;
+        }
+
+        .terminal-body {
+            padding: 25px;
+            color: #00ff41;
+            font-size: 11px;
+            line-height: 2;
+        }
+
+        .terminal-body .dim {
+            color: #667368;
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .project-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 9999;
+        }
+
+        .project-modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: min(600px, 100%);
+            background: #020403;
+            border: 1px solid #00ff41;
+            box-shadow: 0 0 40px rgba(0,255,65,.2);
+            padding: 30px;
+        }
+
+        .modal-box h2 {
+            color: #00ff41;
+            margin-top: 0;
+        }
+
+        .modal-box p {
+            color: #87958b;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .close-modal {
+            float: right;
+            background: none;
+            border: none;
+            color: #ff3131;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 800px) {
+
+            .projects-nav {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .page-navigation {
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vault-status {
+                grid-template-columns: 1fr;
+            }
+
+            .vault-title {
+                letter-spacing: 4px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="projects-page">
+
+    <!-- NAVIGATION -->
+    <header class="projects-nav">
+
+        <div class="terminal-path">
+            <span>root@krishna</span>:~/projects#
+        </div>
+
+        <div class="page-navigation">
+            <a href="../index.html">HOME</a>
+            <a href="about.html">ABOUT</a>
+            <a href="skills.html">SKILLS</a>
+            <a href="projects.html" class="active">PROJECTS</a>
+            <a href="terminal.html">TERMINAL</a>
+        </div>
+
+    </header>
+
+
+    <!-- HEADER -->
+    <section class="vault-header">
+
+        <div class="classification">
+            ⚠ CLASSIFIED DEVELOPER ARCHIVE ⚠
+        </div>
+
+        <h1 class="vault-title">
+            PROJECT VAULT
+        </h1>
+
+        <p class="vault-subtitle">
+            ENCRYPTED PROJECT DATABASE // ACCESS GRANTED
+        </p>
+
+    </section>
+
+
+    <!-- STATUS -->
+    <section class="vault-status">
+
+        <div class="status-box">
+            <small>PROJECTS LOADED</small>
+            <strong>06</strong>
+        </div>
+
+        <div class="status-box">
+            <small>VAULT STATUS</small>
+            <strong>ONLINE</strong>
+        </div>
+
+        <div class="status-box">
+            <small>SECURITY LEVEL</small>
+            <strong>LEVEL 07</strong>
+        </div>
+
+    </section>
+
+
+    <!-- FILTER -->
+    <div class="filter-bar">
+
+        <button class="filter-btn active" onclick="filterProjects('all')">
+            ALL
+        </button>
+
+        <button class="filter-btn" onclick="filterProjects('web')">
+            WEB
+        </button>
+
+        <button class="filter-btn" onclick="filterProjects('ai')">
+            AI
+        </button>
+
+        <button class="filter-btn" onclick="filterProjects('system')">
+            SYSTEM
+        </button>
+
+    </div>
+
+
+    <!-- PROJECTS -->
+    <section class="project-grid">
+
+
+        <!-- PROJECT 01 -->
+        <article class="project-card" data-category="web">
+
+            <div class="project-top">
+                <span class="project-id">FILE://PROJECT_001</span>
+                <span class="project-status">ACTIVE</span>
+            </div>
+
+            <div class="project-icon">
+                &lt;/&gt;
+            </div>
+
+            <h2>CYBER PORTFOLIO</h2>
+
+            <p>
+                A futuristic developer portfolio built with a
+                terminal-inspired interface and interactive
+                cyberpunk UI.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech">HTML</span>
+                <span class="tech">CSS</span>
+                <span class="tech">JAVASCRIPT</span>
+            </div>
+
+            <button class="access-btn"
+                    onclick="openProject(
+                    'CYBER PORTFOLIO',
+                    'Interactive hacker-style developer portfolio.'
+                    )">
+                [ ACCESS PROJECT ]
+            </button>
+
+        </article>
+
+
+        <!-- PROJECT 02 -->
+        <article class="project-card" data-category="ai">
+
+            <div class="project-top">
+                <span class="project-id">FILE://PROJECT_002</span>
+                <span class="project-status">ACTIVE</span>
+            </div>
+
+            <div class="project-icon">
+                AI
+            </div>
+
+            <h2>AI CHATBOT</h2>
+
+            <p>
+                Intelligent conversational interface designed
+                to automate replies and interact with users.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech">AI</span>
+                <span class="tech">API</span>
+                <span class="tech">JAVASCRIPT</span>
+            </div>
+
+            <button class="access-btn"
+                    onclick="openProject(
+                    'AI CHATBOT',
+                    'AI-powered conversational automation project.'
+                    )">
+                [ ACCESS PROJECT ]
+            </button>
+
+        </article>
+
+
+        <!-- PROJECT 03 -->
+        <article class="project-card" data-category="system">
+
+            <div class="project-top">
+                <span class="project-id">FILE://PROJECT_003</span>
+                <span class="project-status">BUILDING</span>
+            </div>
+
+            <div class="project-icon">
+                $_
+            </div>
+
+            <h2>AUTOMATION CORE</h2>
+
+            <p>
+                Automation system designed to connect different
+                services and execute repetitive workflows.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech">N8N</span>
+                <span class="tech">API</span>
+                <span class="tech">WEBHOOK</span>
+            </div>
+
+            <button class="access-btn"
+                    onclick="openProject(
+                    'AUTOMATION CORE',
+                    'Workflow automation and service integration system.'
+                    )">
+                [ ACCESS PROJECT ]
+            </button>
+
+        </article>
+
+
+        <!-- PROJECT 04 -->
+        <article class="project-card" data-category="web">
+
+            <div class="project-top">
+                <span class="project-id">FILE://PROJECT_004</span>
+                <span class="project-status">ACTIVE</span>
+            </div>
+
+            <div class="project-icon">
+                DB
+            </div>
+
+            <h2>DATABASE SYSTEM</h2>
+
+            <p>
+                Database-based application for storing,
+                managing and retrieving structured information.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech">SQL</span>
+                <span class="tech">DATABASE</span>
+                <span class="tech">CRUD</span>
+            </div>
+
+            <button class="access-btn"
+                    onclick="openProject(
+                    'DATABASE SYSTEM',
+                    'Database management application.'
+                    )">
+                [ ACCESS PROJECT ]
+            </button>
+
+        </article>
+
+
+        <!-- PROJECT 05 -->
+        <article class="project-card" data-category="system">
+
+            <div class="project-top">
+                <span class="project-id">FILE://PROJECT_005</span>
+                <span class="project-status locked">CLASSIFIED</span>
+            </div>
+
+            <div class="project-icon">
+                ⚡
+            </div>
+
+            <h2>SECRET SYSTEM</h2>
+
+            <p>
+                Experimental developer project currently hidden
+                inside the encrypted project vault.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech">SYSTEM</span>
+                <span class="tech">EXPERIMENT</span>
+            </div>
+
+            <button class="access-btn"
+                    onclick="openProject(
+                    'SECRET SYSTEM',
+                    'This project is currently classified.'
+                    )">
+                [ REQUEST ACCESS ]
+            </button>
+
+        </article>
+
+
+        <!-- PROJECT 06 -->
+        <article class="project-card" data-category="ai">
+
+            <div class="project-top">
+                <span class="project-id">FILE://PROJECT_006</span>
+                <span class="project-status">RESEARCH</span>
+            </div>
+
+            <div class="project-icon">
+                &gt;_
+            </div>
+
+            <h2>DEV TERMINAL</h2>
+
+            <p>
+                Interactive terminal interface with custom
+                commands and developer-focused system utilities.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech">JAVASCRIPT</span>
+                <span class="tech">CLI</span>
+                <span class="tech">UI</span>
+            </div>
+
+            <button class="access-btn"
+                    onclick="openProject(
+                    'DEV TERMINAL',
+                    'Interactive browser-based developer terminal.'
+                    )">
+                [ ACCESS PROJECT ]
+            </button>
+
+        </article>
+
+    </section>
+
+
+    <!-- TERMINAL -->
+    <section class="project-terminal">
+
+        <div class="terminal-head">
+            <span>root@krishna</span>:~/projects/vault$
+        </div>
+
+        <div class="terminal-body">
+
+            <div>
+                > scanning project directory...
+            </div>
+
+            <div>
+                > loading encrypted files...
+            </div>
+
+            <div>
+                > projects detected: 06
+            </div>
+
+            <div>
+                > vault integrity: <strong>100%</strong>
+            </div>
+
+            <div class="dim">
+                > awaiting next command...
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- MODAL -->
+<div class="project-modal" id="projectModal">
+
+    <div class="modal-box">
+
+        <button class="close-modal"
+                onclick="closeProject()">
+            [X]
+        </button>
+
+        <h2 id="modalTitle">
+            PROJECT
+        </h2>
+
+        <p id="modalDescription">
+            Project information.
+        </p>
+
+        <p style="color:#00ff41;">
+            STATUS: ACCESS GRANTED
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       PROJECT FILTER
+    ========================= */
+
+    function filterProjects(category) {
+
+        const cards =
+            document.querySelectorAll(".project-card");
+
+        const buttons =
+            document.querySelectorAll(".filter-btn");
+
+        buttons.forEach(button => {
+            button.classList.remove("active");
+        });
+
+        event.target.classList.add("active");
+
+        cards.forEach(card => {
+
+            if (
+                category === "all" ||
+                card.dataset.category === category
+            ) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+
+        });
+
+    }
+
+
+    /* =========================
+       PROJECT MODAL
+    ========================= */
+
+    function openProject(title, description) {
+
+        document.getElementById("modalTitle")
+            .textContent = title;
+
+        document.getElementById("modalDescription")
+            .textContent = description;
+
+        document
+            .getElementById("projectModal")
+            .classList.add("show");
+
+    }
+
+
+    function closeProject() {
+
+        document
+            .getElementById("projectModal")
+            .classList.remove("show");
+
+    }
+
+
+    /* CLOSE MODAL ON BACKGROUND CLICK */
+
+    document
+        .getElementById("projectModal")
+        .addEventListener("click", function(e) {
+
+            if (e.target === this) {
+                closeProject();
+            }
+
+        });
+
+</script>
+
+</body>
+</html>
